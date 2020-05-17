@@ -16,7 +16,7 @@ namespace Saber.Vendor.ImportExport
             {
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
-                    var files = Common.Platform.Website.AllFiles();
+                    var files = Common.Platform.Website.AllFiles(new string[] { "/wwwroot/content"});
                     var root = Server.MapPath("/") + "\\";
                     foreach (var file in files)
                     {
