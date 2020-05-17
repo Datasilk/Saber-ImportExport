@@ -20,9 +20,9 @@ namespace Saber.Vendor.ImportExport
                 Context.Response.StatusCode = 200;
                 content.CopyToAsync(Context.Response.Body);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
+                return Error(ex.Message + "\n" + ex.StackTrace);
             }
             return "";
         }

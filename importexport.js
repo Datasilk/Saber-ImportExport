@@ -1,5 +1,5 @@
 ﻿(function () {
-    $('.import-export .import button').on('click', () => {
+    $('.import-export.import button').on('click', () => {
         //allow user to select a zip file to upload
         $('#import_zip')[0].click();
     });
@@ -20,14 +20,5 @@
         }
         fd.append("zip", file);
         xhr.send(fd);
-    });
-
-    $('.gulp button').on('click', () => {
-        $.ajax({
-            url: '/SaberRecompile',
-            success: () => {
-                alert('Website recompiling complete');
-            }
-        });
     });
 })();

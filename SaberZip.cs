@@ -16,29 +16,11 @@ namespace Saber.Vendor.ImportExport
             {
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
-                    //add content to zip archive
-                    var parent = new DirectoryInfo(Server.MapPath("/Content/pages"));
-                    AddDirectoryToArchive(archive, parent);
-                    parent = new DirectoryInfo(Server.MapPath("/Content/partials"));
-                    AddDirectoryToArchive(archive, parent);
-                    archive.CreateEntryFromFile(Server.MapPath("/CSS/website.less"), "CSS/website.less", CompressionLevel.Fastest);
-                    archive.CreateEntryFromFile(Server.MapPath("/Scripts/website.js"), "Scripts/website.js", CompressionLevel.Fastest);
-                    parent = new DirectoryInfo(Server.MapPath("/wwwroot"));
-                    foreach (var dir in parent.GetDirectories())
+                    var files = Common.Platform.Website.AllFiles();
+                    var root = Server.MapPath("/") + "\\";
+                    foreach (var file in files)
                     {
-                        switch (dir.Name)
-                        {
-                            case "content":
-                            case "css":
-                            case "editor":
-                            case "js":
-                            case "themes":
-                                //ignore platform-specific wwwroot directories
-                                break;
-                            default:
-                                AddDirectoryToArchive(archive, dir);
-                                break;
-                        }
+                        archive.CreateEntryFromFile(file, file.Replace(root, ""), CompressionLevel.Fastest);
                     }
                 }
                 ms.Position = 0;
@@ -61,6 +43,7 @@ namespace Saber.Vendor.ImportExport
 
                 foreach (var entry in archive.Entries)
                 {
+                    if(entry.Name == "") { continue; }
                     var path = entry.FullName.Replace(entry.Name, "").Replace("\\", "/");
                     var paths = path.Split("/");
                     var exts = entry.Name.ToLower().Split(".");
@@ -78,10 +61,7 @@ namespace Saber.Vendor.ImportExport
                                 switch (paths[1].ToLower())
                                 {
                                     case "content":
-                                    case "css":
                                     case "editor":
-                                    case "js":
-                                    case "themes":
                                         break;
 
                                     default:
@@ -99,11 +79,11 @@ namespace Saber.Vendor.ImportExport
                                     switch (paths[1].ToLower())
                                     {
                                         case "pages":
-                                            copyTo = "/Content/pages/";
+                                            copyTo = path;
                                             break;
 
                                         case "partials":
-                                            copyTo = "/Content/partials/";
+                                            copyTo = path;
                                             break;
                                     }
                                 }
@@ -125,6 +105,10 @@ namespace Saber.Vendor.ImportExport
 
                     if (copyTo != "")
                     {
+                        if (!Directory.Exists(Server.MapPath(copyTo)))
+                        {
+                            Directory.CreateDirectory(Server.MapPath(copyTo));
+                        }
                         using (var file = entry.Open())
                         {
                             var fms = new MemoryStream();
@@ -138,10 +122,6 @@ namespace Saber.Vendor.ImportExport
                             using (var sr = new StreamReader(file))
                             {
                                 var data = sr.ReadToEnd();
-                                if (!Directory.Exists(Server.MapPath(copyTo)))
-                                {
-                                    Directory.CreateDirectory(Server.MapPath(copyTo));
-                                }
                                 File.WriteAllBytes(Server.MapPath(copyTo + entry.Name), bytes);
                             }
                         }
@@ -151,21 +131,8 @@ namespace Saber.Vendor.ImportExport
             Thread.Sleep(500);
 
             //run default gulp command to copy new website resources to wwwroot folder
-            Gulp.Task("default");
             Gulp.Task("default:website");
             Thread.Sleep(500);
-        }
-
-        private static void AddDirectoryToArchive(ZipArchive archive, DirectoryInfo parent)
-        {
-            foreach (var file in parent.GetFiles())
-            {
-                archive.CreateEntryFromFile(file.FullName, file.FullName.Replace(Server.MapPath("/") + "\\", ""), CompressionLevel.Fastest);
-            }
-            foreach (var dir in parent.GetDirectories())
-            {
-                AddDirectoryToArchive(archive, dir);
-            }
         }
     }
 }

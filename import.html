@@ -1,0 +1,58 @@
+﻿<style>
+    .import-export.import .tooltip-container{width:100%; max-width:500px;} 
+</style>
+<div class="row import-export import">
+    <div class="col ten tablet-twelve">
+        <div class="row">
+            <h5>Import Website Content</h5>
+            
+        </div>
+        <div class="col text">
+            Add content to your website, including HTML, CSS, LESS, & Javascript. Make sure
+            the zip file you upload contains files within the following folder structure. Include
+            at least one of the folders below within your zip file.
+        </div>
+        <div class="row">
+            <div class="col tooltip-container">
+                <span class="link">Read more...</span>
+                <div class="col tooltip below tip-left text">
+                <ul>
+                    <li>
+                        <b>wwwroot/**</b>
+                        <div>
+                            Any files or sub folders located within wwwroot will be copied over.
+                        </div>
+                    </li>
+                    <li>
+                        <b>content/pages</b>
+                        <div>
+                            Each web page should contain the following files: <strong>{page}.html</strong>, <strong>{page}.less</strong>, 
+                            <strong>{page}.js</strong>, <strong>{page}.json</strong>, and <strong>{page}_{lang}.json</strong>.
+                            <span class="note">
+                                Replace {page} with the name of your page, such as blog.html. 
+                                Also, replace {lang} with your preferred language, such as "en" (English) or "es" (Spanish).
+                            </span>
+                        </div>
+                    </li>
+                    <li>
+                        <b>content/partials</b>
+                        <div>
+                            Each partial should contain a <strong>html</strong> & <strong>less</strong> file.
+                        </div>
+                    </li>
+                    <li>
+                        <b>css/website.less</b>
+                        <div>
+                            You are able to overwrite the site-wide LESS file if it is required.
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            </div>
+        </div>
+    </div>
+    <div class="col two tablet-twelve right">
+        <div class="text-right"><button>Import Content</button></div>
+        <input type="file" id="import_zip" class="hidden-button" />
+    </div>
+</div>

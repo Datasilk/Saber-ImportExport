@@ -6,6 +6,7 @@ namespace Saber.Vendor.ImportExport
     {
         public override string Render(string body = "")
         {
+            if (!CheckSecurity()) { return AccessDenied<Controllers.Login>(); }
             if (Context.Request.Form.Files[0].ContentType != "application/x-zip-compressed")
             {
                 return Error("Import file must be a compressed zip file.");

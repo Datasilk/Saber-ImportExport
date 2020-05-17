@@ -46,10 +46,7 @@ Please make sure the files contained within the zip file you wish to import foll
 ##### Ignored Folder Structure
 Do not include any of the folders defined below within your zip file. These are system folders reserved for the Saber platform only.
 * **/wwwroot/content**
-* **/wwwroot/css**
 * **/wwwroot/editor**
-* **/wwwroot/js**
-* **/wwwroot/themes**
 
 ##### Zip File Processing
 After importing your zip file, all acceptable files will be copied to their respective folders, then all **less* files will be compiled to **css** and copied to the **wwwroot** folder to their folders. Any **js** files outside of the **wwwroot** folder will be copied into the **wwwroot** folder as well.
