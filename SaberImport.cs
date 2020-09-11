@@ -12,10 +12,10 @@ namespace Saber.Vendor.ImportExport
                 return Error("Import file must be a compressed zip file.");
             }
             //create backup of website
-            var copyTo = "Content/backups/";
-            if (!Directory.Exists(Server.MapPath(copyTo)))
+            var copyTo = Server.MapPath("Content/backups/");
+            if (!Directory.Exists(copyTo))
             {
-                Directory.CreateDirectory(Server.MapPath(copyTo));
+                Directory.CreateDirectory(copyTo);
             }
             File.WriteAllBytes(copyTo + "latest.zip", SaberZip.Export());
 
