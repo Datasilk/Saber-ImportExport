@@ -61,6 +61,11 @@ namespace Saber.Vendor.ImportExport
                                 switch (paths[1].ToLower())
                                 {
                                     case "content":
+                                        if(extension != "js" && extension != "css")
+                                        {
+                                            copyTo = string.Join("/", paths);
+                                        }
+                                        break;
                                     case "editor":
                                         break;
 
@@ -131,7 +136,7 @@ namespace Saber.Vendor.ImportExport
             Thread.Sleep(500);
 
             //run default gulp command to copy new website resources to wwwroot folder
-            Gulp.Task("default:website");
+            Gulp.Task("website");
             Thread.Sleep(500);
         }
     }

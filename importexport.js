@@ -12,7 +12,7 @@
         xhr.onreadystatechange = function () {
             if (xhr.readyState == 4 && xhr.status == 200) {
                 console.log(xhr);
-                alert("Imported website content successfully after generating a zip backup file (/backups/" + xhr.responseText + ')')
+                alert("Imported website content successfully after generating a zip backup file (/backups/" + xhr.responseText + ').\n Please "hard" refresh this page (Ctrl + F5) to see the changes made to your website.')
             }
         };
         xhr.onerror = function (err) {

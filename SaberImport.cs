@@ -7,7 +7,11 @@ namespace Saber.Vendor.ImportExport
         public override string Render(string body = "")
         {
             if (!CheckSecurity()) { return AccessDenied<Controllers.Login>(); }
-            if (Context.Request.Form.Files[0].ContentType != "application/x-zip-compressed")
+            if(Parameters.Files.Count == 0)
+            {
+                return Error("Please specify a file to import");
+            }
+            if (Parameters.Files.Count > 0 && Parameters.Files["zip"].ContentType != "application/x-zip-compressed")
             {
                 return Error("Import file must be a compressed zip file.");
             }
@@ -20,10 +24,7 @@ namespace Saber.Vendor.ImportExport
             File.WriteAllBytes(copyTo + "latest.zip", SaberZip.Export());
 
             //open uploaded zip file
-            using (var ms = Context.Request.Form.Files[0].OpenReadStream())
-            {
-                SaberZip.Import(ms);
-            }
+            SaberZip.Import(Parameters.Files["zip"]);
 
             return "latest.zip";
         }
