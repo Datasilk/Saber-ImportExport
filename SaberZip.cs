@@ -1,8 +1,8 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.IO;
 using System.IO.Compression;
-using System.Threading;
-using Saber.Common.ProcessInfo;
+using System.Text;
 
 namespace Saber.Vendor.ImportExport
 {
@@ -44,16 +44,18 @@ namespace Saber.Vendor.ImportExport
                 foreach (var entry in archive.Entries)
                 {
                     if(entry.Name == "") { continue; }
+                    Console.WriteLine("entry: " + entry.FullName);
                     var path = entry.FullName.Replace(entry.Name, "").Replace("\\", "/");
                     var paths = path.Split("/");
                     var exts = entry.Name.ToLower().Split(".");
                     var extension = exts[^1];
                     var copyTo = "";
+                    var root = paths[0].ToLower();
 
                     //ignore restricted file extensions (potentially dangerous malicious files)
                     if (Malicious.FileExtensions.Contains(extension)) { continue; }
 
-                    switch (paths[0].ToLower())
+                    switch (root)
                     {
                         case "wwwroot":
                             if (paths.Length > 1)
@@ -110,6 +112,7 @@ namespace Saber.Vendor.ImportExport
 
                     if (copyTo != "")
                     {
+                        Console.WriteLine("copy to: " + copyTo + entry.Name);
                         if (!Directory.Exists(Server.MapPath(copyTo)))
                         {
                             Directory.CreateDirectory(Server.MapPath(copyTo));
@@ -124,20 +127,38 @@ namespace Saber.Vendor.ImportExport
                                 fms.Write(buffer, 0, bytesRead);
                             bytes = fms.ToArray();
 
-                            using (var sr = new StreamReader(file))
+                            File.WriteAllBytes(Server.MapPath(copyTo + entry.Name), bytes);
+                            if (root == "content" && extension == "less")
                             {
-                                var data = sr.ReadToEnd();
-                                File.WriteAllBytes(Server.MapPath(copyTo + entry.Name), bytes);
+                                //compile less file to public wwwroot folder
+                                var lesspath = "";
+                                switch (root)
+                                {
+                                    case "content":
+                                        lesspath = "/wwwroot/" + path.Replace("Content/", "content/");
+                                        break;
+                                    case "css":
+                                        if (entry.Name.ToLower() == "website.less")
+                                        {
+                                            lesspath = "/wwwroot/css/";
+                                        }
+                                        break;
+                                }
+                                Console.WriteLine("compiling LESS file: " + Server.MapPath(lesspath + entry.Name.Replace(".less", ".css")));
+
+                                var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                                Common.Platform.Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
+                            }
+                            else if (root == "content" && extension == "js")
+                            {
+                                //copy js file to public wwwroot folder
+                                Console.WriteLine("copying JS file: " + Server.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name));
+                                File.WriteAllBytes(Server.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name), bytes);
                             }
                         }
                     }
                 }
             }
-            Thread.Sleep(500);
-
-            //run default gulp command to copy new website resources to wwwroot folder
-            Gulp.Task("website");
-            Thread.Sleep(500);
         }
     }
 }
