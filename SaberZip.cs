@@ -3,6 +3,7 @@ using System.Linq;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
+using Saber.Common.Platform;
 
 namespace Saber.Vendor.ImportExport
 {
@@ -128,7 +129,7 @@ namespace Saber.Vendor.ImportExport
                             bytes = fms.ToArray();
 
                             File.WriteAllBytes(Server.MapPath(copyTo + entry.Name), bytes);
-                            if (root == "content" && extension == "less")
+                            if (extension == "less")
                             {
                                 //compile less file to public wwwroot folder
                                 var lesspath = "";
@@ -144,10 +145,18 @@ namespace Saber.Vendor.ImportExport
                                         }
                                         break;
                                 }
-                                Console.WriteLine("compiling LESS file: " + Server.MapPath(lesspath + entry.Name.Replace(".less", ".css")));
+                                if (!string.IsNullOrEmpty(lesspath))
+                                {
+                                    Console.WriteLine("compiling LESS file: " + Server.MapPath(lesspath + entry.Name.Replace(".less", ".css")));
 
-                                var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                                Common.Platform.Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
+                                    if (!Directory.Exists(Server.MapPath(lesspath)))
+                                    {
+                                        Directory.CreateDirectory(Server.MapPath(lesspath));
+                                    }
+                                    var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
+                                    Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
+                                }
+                                
                             }
                             else if (root == "content" && extension == "js")
                             {
@@ -158,6 +167,9 @@ namespace Saber.Vendor.ImportExport
                         }
                     }
                 }
+
+                //finally, recompile website.css
+                Website.SaveLessFile(File.ReadAllText(Server.MapPath("/CSS/website.less")), "/wwwroot/css/website.css", "/CSS");
             }
         }
     }
