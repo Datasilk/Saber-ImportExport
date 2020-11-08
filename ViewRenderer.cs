@@ -1,12 +1,15 @@
-﻿namespace Saber.Vendor.ImportExport.Import
+﻿using Saber.Core;
+
+namespace Saber.Vendor.ImportExport.Import
 {
     [ViewPath("/Views/AppSettings/appsettings.html")]
     public class ViewRenderer : IVendorViewRenderer
     {
-        public string Render(Request request, View view)
+        public string Render(IRequest request, View view)
         {
-            var settingsView = new View("/Vendor/ImportExport/import.html");
-            request.AddScript("/editor/js/vendor/importexport/importexport.js");
+            if (!request.CheckSecurity("import")) { return ""; }
+            var settingsView = new View("/Vendors/ImportExport/import.html");
+            request.AddScript("/editor/js/vendors/importexport/importexport.js");
             return settingsView.Render();
         }
     }
@@ -17,9 +20,10 @@ namespace Saber.Vendor.ImportExport.Export
     [ViewPath("/Views/AppSettings/appsettings.html")]
     public class ViewRenderer : IVendorViewRenderer
     {
-        public string Render(Request request, View view)
+        public string Render(IRequest request, View view)
         {
-            var settingsView = new View("/Vendor/ImportExport/export.html");
+            if (!request.CheckSecurity("export")) { return ""; }
+            var settingsView = new View("/Vendors/ImportExport/export.html");
             return settingsView.Render();
         }
     }

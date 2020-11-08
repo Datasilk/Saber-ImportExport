@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using Saber.Core;
 
 namespace Saber.Vendor.ImportExport
 {
@@ -8,7 +9,7 @@ namespace Saber.Vendor.ImportExport
     {
         public override string Render(string body = "")
         {
-            if (!CheckSecurity()) { return AccessDenied<Controllers.Login>(); }
+            if (!CheckSecurity()) { return base.Render("Access Denied"); }
             try
             {
                 var filename = "SaberExport.zip";

@@ -3,7 +3,6 @@ using System.Linq;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
-using Saber.Common.Platform;
 
 namespace Saber.Vendor.ImportExport
 {
@@ -17,8 +16,8 @@ namespace Saber.Vendor.ImportExport
             {
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
-                    var files = Common.Platform.Website.AllFiles();
-                    var root = Server.MapPath("/") + (Server.IsDocker ? "/" : "\\");
+                    var files = Core.Website.AllFiles();
+                    var root = App.MapPath("/") + (App.IsDocker ? "/" : "\\");
                     foreach (var file in files)
                     {
                         archive.CreateEntryFromFile(file, file.Replace(root, ""), CompressionLevel.Fastest);
@@ -114,9 +113,9 @@ namespace Saber.Vendor.ImportExport
                     if (copyTo != "")
                     {
                         Console.WriteLine("copy to: " + copyTo + entry.Name);
-                        if (!Directory.Exists(Server.MapPath(copyTo)))
+                        if (!Directory.Exists(App.MapPath(copyTo)))
                         {
-                            Directory.CreateDirectory(Server.MapPath(copyTo));
+                            Directory.CreateDirectory(App.MapPath(copyTo));
                         }
                         using (var file = entry.Open())
                         {
@@ -128,7 +127,7 @@ namespace Saber.Vendor.ImportExport
                                 fms.Write(buffer, 0, bytesRead);
                             bytes = fms.ToArray();
 
-                            File.WriteAllBytes(Server.MapPath(copyTo + entry.Name), bytes);
+                            File.WriteAllBytes(App.MapPath(copyTo + entry.Name), bytes);
                             if (extension == "less")
                             {
                                 //compile less file to public wwwroot folder
@@ -147,29 +146,29 @@ namespace Saber.Vendor.ImportExport
                                 }
                                 if (!string.IsNullOrEmpty(lesspath))
                                 {
-                                    Console.WriteLine("compiling LESS file: " + Server.MapPath(lesspath + entry.Name.Replace(".less", ".css")));
+                                    Console.WriteLine("compiling LESS file: " + App.MapPath(lesspath + entry.Name.Replace(".less", ".css")));
 
-                                    if (!Directory.Exists(Server.MapPath(lesspath)))
+                                    if (!Directory.Exists(App.MapPath(lesspath)))
                                     {
-                                        Directory.CreateDirectory(Server.MapPath(lesspath));
+                                        Directory.CreateDirectory(App.MapPath(lesspath));
                                     }
                                     var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                                    Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
+                                    //Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
                                 }
                                 
                             }
                             else if (root == "content" && extension == "js")
                             {
                                 //copy js file to public wwwroot folder
-                                Console.WriteLine("copying JS file: " + Server.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name));
-                                File.WriteAllBytes(Server.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name), bytes);
+                                Console.WriteLine("copying JS file: " + App.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name));
+                                File.WriteAllBytes(App.MapPath("/wwwroot/" + path.Replace("Content/", "content/") + entry.Name), bytes);
                             }
                         }
                     }
                 }
 
                 //finally, recompile website.css
-                Website.SaveLessFile(File.ReadAllText(Server.MapPath("/CSS/website.less")), "/wwwroot/css/website.css", "/CSS");
+                //Website.SaveLessFile(File.ReadAllText(App.MapPath("/CSS/website.less")), "/wwwroot/css/website.css", "/CSS");
             }
         }
     }

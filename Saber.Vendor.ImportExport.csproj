@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>Saber.Vendor.ImportExport</RootNamespace>
+    <AssemblyName>Saber.Vendor.ImportExport</AssemblyName>
+    <Authors>Mark Entingh</Authors>
+    <Company>Datasilk</Company>
+    <Description>A vendor plugin for Saber (https://saber.datasilk.io/saber) that allows administrators to export their website content (HTML, LESS, CSS, JS, uploaded files and images) and import website content from a zip file.</Description>
+    <Copyright>2020 Datasilk</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://www.github.com/Datasilk/Saber-ImportExport</RepositoryUrl>
+    <RepositoryType>GitHub</RepositoryType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Saber.Vendor" Version="1.0.4" />
+  </ItemGroup>
+</Project>

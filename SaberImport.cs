@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using Saber.Core;
 
 namespace Saber.Vendor.ImportExport
 {
@@ -6,8 +7,8 @@ namespace Saber.Vendor.ImportExport
     {
         public override string Render(string body = "")
         {
-            if (!CheckSecurity()) { return AccessDenied<Controllers.Login>(); }
-            if(Parameters.Files.Count == 0)
+            if (!CheckSecurity()) { return base.Render("Access Denied"); }
+            if (Parameters.Files.Count == 0)
             {
                 return Error("Please specify a file to import");
             }
@@ -16,7 +17,7 @@ namespace Saber.Vendor.ImportExport
                 return Error("Import file must be a compressed zip file.");
             }
             //create backup of website
-            var copyTo = Server.MapPath("Content/backups/");
+            var copyTo = App.MapPath("Content/backups/");
             if (!Directory.Exists(copyTo))
             {
                 Directory.CreateDirectory(copyTo);
