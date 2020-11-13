@@ -1,5 +1,4 @@
 var gulp = require('gulp'),
-    del = require('del'),
     sevenBin = require('7zip-bin'),
     sevenZip = require('node-7z');
 
@@ -12,8 +11,8 @@ function publishToPlatform(platform) {
         //include custom resources
         'export.html', 'import.html', 'importexport.js',
         //include all files from published folder
-        release + platform + app + '/publish/*'
-    ]).pipe(gulp.dest(publish + app + '/' + platform, { overwrite: true }));
+        release + platform + '/publish/*'
+    ]).pipe(gulp.dest(publish + '/' + platform + '/' + app, { overwrite: true }));
 }
 
 gulp.task('publish:win-x64', () => {
@@ -25,13 +24,15 @@ gulp.task('publish:linux-x64', () => {
 });
 
 gulp.task('zip', () => {
-    process.chdir(publish);
-    sevenZip.add(app + '.7z', 'ImportExport', {
-        $bin: sevenBin.path7za,
-        recursive: true
-    });
-    process.chdir('../..');
-    del('bin/Release', { force: true });
+    setTimeout(() => {
+        //wait 500ms before creating zip to ensure no files are locked
+        process.chdir(publish);
+        sevenZip.add(app + '.7z', app, {
+            $bin: sevenBin.path7za,
+            recursive: true
+        });
+        process.chdir('../..');
+    }, 500);
     return gulp.src('.');
 });
 
