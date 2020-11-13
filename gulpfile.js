@@ -11,7 +11,12 @@ function publishToPlatform(platform) {
         //include custom resources
         'export.html', 'import.html', 'importexport.js',
         //include all files from published folder
-        release + platform + '/publish/*'
+        release + platform + '/publish/*',
+        //exclude unwanted dependencies
+        '!' + release + platform + '/publish/Core.dll',
+        '!' + release + platform + '/publish/Saber.Core.dll',
+        '!' + release + platform + '/publish/Saber.Vendor.dll',
+        '!' + release + platform + '/publish/*.deps.json'
     ]).pipe(gulp.dest(publish + '/' + platform + '/' + app, { overwrite: true }));
 }
 
