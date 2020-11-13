@@ -102,12 +102,6 @@ namespace Saber.Vendor.ImportExport
                                 copyTo = "/CSS/";
                             }
                             break;
-                        case "scripts":
-                            if (entry.Name.ToLower() == "website.js")
-                            {
-                                copyTo = "/wwwroot/js/";
-                            }
-                            break;
                     }
 
                     if (copyTo != "")

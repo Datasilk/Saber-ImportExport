@@ -8,11 +8,18 @@ With this plugin, you'll be able to make changes to your website HTML, CSS, LESS
 * Clone [Saber](https://github.com/Datasilk/Saber) repository
 
 ### Installation
+#### For Visual Studio Users
 * Clone this repository inside your Saber project within `/App/Vendor/` and name the folder **ImportExport**
 	> NOTE: use `git clone` instead of `git submodule add` since the contents of the Vendor folder is ignored by git
-* Run `gulp default`
+* Run `gulp default` from the root of your Saber project folder
 
-### Release
+#### For DevOps Users
+While using the latest release of [Saber](https://github.com/Datasilk/Saber/releases), do the following:
+* Download latest release of [Saber.Vendor.ImportExport](https://github.com/Datasilk/Saber-ImportExport/releases)
+* Extract all files & folders from either `win-x64` or `linux-x64` folder to Saber's `/Vendors/` folder
+
+
+### Publish
 * run command `./publish.bat`
 
 ### Zip File Structure
@@ -40,18 +47,22 @@ Please make sure the files contained within the zip file you wish to import foll
       * my-partial.less
 * **/CSS**
   * **website.less**
-* **/Scripts**
-  * **website.js**
 * **/wwwroot**
+  * **/js**
+    * **website.js**
+    * my-js-file.js
   * **/my-folder**
     * any file type (.jpg, .png, .gif, .ico, .js, .css, .svg, .avi, .mpg, etc)
+  * **/content**
+    * **/pages**
+      * **/my-page**
+        * any files assoiated with a page  (.jpg, .png, .gif, .pdf, .zip, etc)
 
 ##### Ignored Folder Structure
 Do not include any of the folders defined below within your zip file. These are system folders reserved for the Saber platform only.
-* **/wwwroot/content**
 * **/wwwroot/editor**
 
 ##### Zip File Processing
-After importing your zip file, all acceptable files will be copied to their respective folders, then all **less* files will be compiled to **css** and copied to the **wwwroot** folder to their folders. Any **js** files outside of the **wwwroot** folder will be copied into the **wwwroot** folder as well.
+After importing your zip file, all acceptable files will be copied to their respective folders, then all **less* files will be compiled to **css** and copied to the **wwwroot** folder and nny **js** files outside of the **wwwroot** folder will be copied into the **wwwroot** folder as well.
 
 > **NOTE**: The **wwwroot** folder is a public-facing folder that any user can download content from.
