@@ -12,6 +12,9 @@ With this plugin, you'll be able to make changes to your website HTML, CSS, LESS
 	> NOTE: use `git clone` instead of `git submodule add` since the contents of the Vendor folder is ignored by git
 * Run `gulp default`
 
+### Release
+* run command `./publish.bat`
+
 ### Zip File Structure
 ##### Accepted Folder Structure
 Please make sure the files contained within the zip file you wish to import follows the folder structure below. None of the folders or files below are required to be included within your zip file.
