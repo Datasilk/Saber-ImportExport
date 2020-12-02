@@ -1,16 +1,15 @@
 ﻿<style>
     .import-export.import .tooltip-container{width:100%; max-width:500px;} 
 </style>
-<div class="row import-export import">
+<div class="row import-export import pad-bottom">
     <div class="col ten tablet-twelve">
         <div class="row">
             <h5>Import Website Content</h5>
-            
-        </div>
-        <div class="col text">
-            Add content to your website, including HTML, CSS, LESS, & Javascript. Make sure
-            the zip file you upload contains files within the following folder structure. Include
-            at least one of the folders below within your zip file.
+            <p>
+                Add content to your website, including HTML, CSS, LESS, & Javascript. Make sure
+                the zip file you upload contains files within the following folder structure. Include
+                at least one of the folders below within your zip file.
+            </p>
         </div>
         <div class="row">
             <div class="col tooltip-container">
@@ -19,32 +18,32 @@
                 <ul>
                     <li>
                         <b>wwwroot/**</b>
-                        <div>
+                        <p>
                             Any files or sub folders located within wwwroot will be copied over.
-                        </div>
+                        </p>
                     </li>
                     <li>
                         <b>content/pages</b>
-                        <div>
+                        <p>
                             Each web page should contain the following files: <strong>{page}.html</strong>, <strong>{page}.less</strong>, 
                             <strong>{page}.js</strong>, <strong>{page}.json</strong>, and <strong>{page}_{lang}.json</strong>.
                             <span class="note">
                                 Replace {page} with the name of your page, such as blog.html. 
                                 Also, replace {lang} with your preferred language, such as "en" (English) or "es" (Spanish).
                             </span>
-                        </div>
+                        </p>
                     </li>
                     <li>
                         <b>content/partials</b>
-                        <div>
+                        <p>
                             Each partial should contain a <strong>html</strong> & <strong>less</strong> file.
-                        </div>
+                        </p>
                     </li>
                     <li>
                         <b>css/website.less</b>
-                        <div>
+                        <p>
                             You are able to overwrite the site-wide LESS file if it is required.
-                        </div>
+                        </p>
                     </li>
                 </ul>
             </div>

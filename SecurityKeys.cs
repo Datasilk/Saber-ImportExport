@@ -1,6 +1,7 @@
 ﻿using Saber.Core;
+using Saber.Vendor;
 
-namespace Saber.Vendor.ImportExport
+namespace Saber.Vendors.ImportExport
 {
     public class SecurityKeys : IVendorKeys
     {

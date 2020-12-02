@@ -1,4 +1,4 @@
-﻿namespace Saber.Vendor.ImportExport
+﻿namespace Saber.Vendors.ImportExport
 {
     public static class Malicious
     {

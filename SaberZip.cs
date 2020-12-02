@@ -4,7 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Text;
 
-namespace Saber.Vendor.ImportExport
+namespace Saber.Vendors.ImportExport
 {
     public static class SaberZip
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using Saber.Core;
+using Saber.Vendor;
 
-namespace Saber.Vendor.ImportExport
+namespace Saber.Vendors.ImportExport
 {
     public class SaberExport : Controller, IVendorController
     {

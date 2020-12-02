@@ -1,7 +1,7 @@
 # Saber-ImportExport
 A vendor plugin for [Saber](https://saber.datasilk.io) that allows webmasters to backup & restore web content for their Saber website using a simple zip file. 
 
-With this plugin, you'll be able to make changes to your website HTML, CSS, LESS, & Javascript within a development environment, then upload the changes to a production environment without having to republish the Saber .NET Core application again. Simply download the exported zip file from your development environment and import (upload) the zip file into your production environment from the **App Settings** section within Saber.
+With this plugin, you'll be able to make changes to your website HTML, CSS, LESS, & Javascript within a development environment, then upload the changes to a production environment without having to republish the Saber .NET Core application again. Simply download the exported zip file from your development environment and import (upload) the zip file into your production environment from the **Website Settings** section within Saber.
 
 ### Prerequisites
 * [Saber](https://saber.datasilk.io) ([latest release](https://github.com/Datasilk/Saber/releases))
@@ -14,7 +14,7 @@ With this plugin, you'll be able to make changes to your website HTML, CSS, LESS
 
 #### For DevOps Users
 While using the latest release of Saber, do the following:
-* Download latest release of [Saber.Vendor.ImportExport](https://github.com/Datasilk/Saber-ImportExport/releases)
+* Download latest release of [Saber.Vendors.ImportExport](https://github.com/Datasilk/Saber-ImportExport/releases)
 * Extract all files & folders from either the `win-x64` or `linux-x64` zip folder to Saber's `/Vendors/` folder
 
 ### Publish
@@ -33,11 +33,23 @@ Please make sure the files contained within the zip file you wish to import foll
     * my-page.html
     * my-page.less
     * my-page.js
-    * **/my-sub-page-folder**
+    * **my-page-folder**
+      * image-001.jpg
+      * image-002.png
+      * image-03.gif
+      * doc-001.pdf
+      * doc-002.docx
+    * **/my-sub-folder**
       * my-page.json
       * my-page.html
       * my-page.less
       * my-page.js
+      * **my-page-folder**
+        * image-001.jpg
+        * image-002.png
+        * image-03.gif
+        * doc-001.pdf
+        * doc-002.docx
   * **/partials**
     * my-partial.html
     * my-partial.less
