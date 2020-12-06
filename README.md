@@ -10,7 +10,7 @@ With this plugin, you'll be able to make changes to your website HTML, CSS, LESS
 #### For Visual Studio Users
 * Clone this repository inside your Saber project within `/App/Vendors/` and name the folder **ImportExport**
 	> NOTE: use `git clone` instead of `git submodule add` since the contents of the Vendor folder is ignored by git
-* Run `gulp default` from the root of your Saber project folder
+* Run `gulp vendors` from the root of your Saber project folder
 
 #### For DevOps Users
 While using the latest release of Saber, do the following:
