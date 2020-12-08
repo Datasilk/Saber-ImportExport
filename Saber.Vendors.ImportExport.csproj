@@ -1,8 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <RootNamespace>Saber.Vendor.ImportExport</RootNamespace>
-    <AssemblyName>Saber.Vendor.ImportExport</AssemblyName>
+    <RootNamespace>Saber.Vendors.ImportExport</RootNamespace>
+    <AssemblyName>Saber.Vendors.ImportExport</AssemblyName>
     <Authors>Mark Entingh</Authors>
     <Company>Datasilk</Company>
     <Description>A vendor plugin for Saber (https://saber.datasilk.io/saber) that allows administrators to export their website content (HTML, LESS, CSS, JS, uploaded files and images) and import website content from a zip file.</Description>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30320.27
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saber.Vendor.ImportExport", "Saber.Vendor.ImportExport.csproj", "{87B93FD0-AFC9-444F-9E89-E0BAE4A41DA8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saber.Vendors.ImportExport", "Saber.Vendors.ImportExport.csproj", "{87B93FD0-AFC9-444F-9E89-E0BAE4A41DA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
