@@ -9,7 +9,7 @@ namespace Saber.Vendors.ImportExport
     {
         public override string Render(string body = "")
         {
-            if (!CheckSecurity()) { return base.Render("Access Denied"); }
+            if (!CheckSecurity("export")) { return AccessDenied(); }
             try
             {
                 var filename = "SaberExport.zip";

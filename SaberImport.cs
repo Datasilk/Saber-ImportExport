@@ -7,7 +7,7 @@ namespace Saber.Vendors.ImportExport
     {
         public override string Render(string body = "")
         {
-            if (!CheckSecurity()) { return base.Render("Access Denied"); }
+            if (!CheckSecurity("import")) { return AccessDenied(); }
             if (Parameters.Files.Count == 0)
             {
                 return Error("Please specify a file to import");
