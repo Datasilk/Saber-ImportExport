@@ -56,7 +56,6 @@ Please make sure the files contained within the zip file you wish to import foll
     * **my-partials-folder**
       * my-partial.html
       * my-partial.less
-* **/CSS**
   * **website.less**
 * **/wwwroot**
   * **/js**

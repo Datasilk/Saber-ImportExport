@@ -23,7 +23,7 @@ namespace Saber.Vendors.ImportExport
             }
             if (access)
             {
-                request.AddScript("/editor/js/vendors/importexport/importexport.js");
+                request.AddScript("/editor/vendors/importexport/importexport.js");
             }
             return html.ToString();
         }

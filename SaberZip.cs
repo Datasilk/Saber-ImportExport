@@ -46,7 +46,7 @@ namespace Saber.Vendors.ImportExport
                     if(entry.Name == "") { continue; }
                     Console.WriteLine("entry: " + entry.FullName);
                     var path = entry.FullName.Replace(entry.Name, "").Replace("\\", "/");
-                    var paths = path.Split("/");
+                    var paths = path.Split("/", StringSplitOptions.RemoveEmptyEntries);
                     var exts = entry.Name.ToLower().Split(".");
                     var extension = exts[^1];
                     var copyTo = "";
@@ -95,11 +95,15 @@ namespace Saber.Vendors.ImportExport
                                     }
                                 }
                             }
-                            break;
-                        case "css":
-                            if (entry.Name.ToLower() == "website.less")
+                            else
                             {
-                                copyTo = "/CSS/";
+                                switch (entry.Name.ToLower())
+                                {
+                                    case "website.less":
+                                    case "website.json":
+                                        copyTo = "/Content/";
+                                        break;
+                                }
                             }
                             break;
                     }
@@ -129,12 +133,13 @@ namespace Saber.Vendors.ImportExport
                                 switch (root)
                                 {
                                     case "content":
-                                        lesspath = "/wwwroot/" + path.Replace("Content/", "content/");
-                                        break;
-                                    case "css":
                                         if (entry.Name.ToLower() == "website.less")
                                         {
                                             lesspath = "/wwwroot/css/";
+                                        }
+                                        else
+                                        {
+                                            lesspath = "/wwwroot/" + path.Replace("Content/", "content/");
                                         }
                                         break;
                                 }
@@ -162,7 +167,7 @@ namespace Saber.Vendors.ImportExport
                 }
 
                 //finally, recompile website.css
-                //Website.SaveLessFile(File.ReadAllText(App.MapPath("/CSS/website.less")), "/wwwroot/css/website.css", "/CSS");
+                //Website.SaveLessFile(File.ReadAllText(App.MapPath("/Content/website.less")), "/wwwroot/css/website.css", "/Content");
             }
         }
     }
