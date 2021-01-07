@@ -1,11 +1,11 @@
 ﻿(function () {
-    $('.import-export.import button').on('click', () => {
+    S('.import-export.import button').on('click', () => {
         //allow user to select a zip file to upload
-        $('#import_zip')[0].click();
+        S('#import_zip')[0].click();
     });
 
-    $('#import_zip').on('change', () => {
-        var file = $('#import_zip')[0].files[0];
+    S('#import_zip').on('change', () => {
+        var file = S('#import_zip')[0].files[0];
         var xhr = new XMLHttpRequest();
         var fd = new FormData();
         xhr.open("POST", "/SaberImport", true);
