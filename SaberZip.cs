@@ -20,6 +20,7 @@ namespace Saber.Vendors.ImportExport
                     var root = App.MapPath("/") + (App.IsDocker ? "/" : "\\");
                     foreach (var file in files)
                     {
+                        if (!File.Exists(file)) { continue; }
                         archive.CreateEntryFromFile(file, file.Replace(root, ""), CompressionLevel.Fastest);
                     }
                 }
@@ -152,7 +153,7 @@ namespace Saber.Vendors.ImportExport
                                         Directory.CreateDirectory(App.MapPath(lesspath));
                                     }
                                     var data = Encoding.UTF8.GetString(bytes, 0, bytes.Length);
-                                    //Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
+                                    Core.Website.SaveLessFile(data, lesspath + entry.Name.Replace(".less", ".css"), copyTo);
                                 }
                                 
                             }
@@ -167,7 +168,7 @@ namespace Saber.Vendors.ImportExport
                 }
 
                 //finally, recompile website.css
-                //Website.SaveLessFile(File.ReadAllText(App.MapPath("/Content/website.less")), "/wwwroot/css/website.css", "/Content");
+                Core.Website.SaveLessFile(File.ReadAllText(App.MapPath("/Content/website.less")), "/wwwroot/css/website.css", "/Content");
             }
         }
     }
